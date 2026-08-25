@@ -165,8 +165,3 @@ The pre-rendered HTML reports in `reports/` are the primary deliverable.
 - Item-level cannibalization is ballpark-wide, not Market-specific (item data has no stand field).
 - Few promotion games, all in the first half of the season.
 - Across-game comparisons are associations; they do not control opponent draw or weather directly.
-- Item availability is inferred by season, not confirmed.
-- Spring Value Games discounted beer and hot dogs on the same dates, so those effects cannot be fully
-  separated.
-- No margin data, so volume shifts cannot yet be translated into profit.
-- **Data is synthetic.** The numbers are not real; the methodology and analytical framework are.
