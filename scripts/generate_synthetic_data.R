@@ -208,7 +208,7 @@ items_def <- tribble(
   "Beer Blue Moon Blood Orange IPA Cleat","Beer",                        "Beer",       0.2,        16.00,       NA,           1.00,       1.0,        0.00,
   "Hot Dog All Beef 6-1",               "Hot Dogs/Sausages",             "Food",       4.5,        7.50,        2.50,         1.0,        1.11,       0.00,
   "Hot Dog All Beef 4-1",               "Hot Dogs/Sausages",             "Food",       2.0,        9.00,        NA,           1.0,        0.85,       0.00,
-  "Hot Dog All Beef 2-1",               "Hot Dogs/Sausages",             "Food",       0.8,        11.00,       NA,           1.0,        0.85,       0.00,
+  "Hot Dog All Beef 2-1",               "Hot Dogs/Sausages",             "Food",       1.5,        11.00,       NA,           1.0,        0.85,       0.00,
   "Burger Basket",                      "Burgers/Sandwiches/Wraps/Bowls","Food",       2.8,        14.50,       NA,           1.0,        0.98,       0.00,
   "Chicken Tender Basket",              "Chicken",                       "Food",       3.0,        13.50,       NA,           1.0,        0.97,       0.00,
   "CFA Chicken Sandwich",               "Chicken",                       "Food",       3.5,        10.50,       NA,           1.0,        1.00,       0.00,

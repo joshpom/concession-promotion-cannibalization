@@ -124,7 +124,7 @@ A few choices worth knowing:
 
 - **Everything is measured per fan** (per turnstile entry), so a busier or quieter night does not by itself look like a promotion effect.
 - **We look at every across-game result two ways.** A *simple comparison* matches only on game tier (a stand-in for expected attendance). A *season-matched* comparison goes further: because all of the promotion games fall in the first half of the season (April through early June, none in mid or late summer), it compares each promotion to non-promotion games **from the same weeks of the calendar**, with a light adjustment for month and weekend. This matters because beer, especially the larger pours, sells very differently in cool spring than in the summer heat for reasons that have nothing to do with the promotion. When the two lenses disagree, the simple number was mostly a reflection of *when* the promotion ran, and we rely on the season-matched result.
-- **Close substitutes, not the whole menu.** For beer we compare against other domestic and light beers (Coors Light, Miller Lite, Coors Banquet), including the larger pours a fan might trade down from. For hot dogs we compare against the other hot dog sizes and adjacent staples (nachos, jumbo pretzel). A "rate ratio" of 1.15 means 15% more units per fan; 1.0 means no change.
+- **Close substitutes, not the whole menu.** For beer we compare against other domestic and light beers (Coors Light, Miller Lite, Coors Banquet), including the larger pours a fan might trade down from. For hot dogs we compare against the other hot dog sizes and adjacent staples (burgers, chicken tenders, nachos, jumbo pretzel). A "rate ratio" of 1.15 means 15% more units per fan; 1.0 means no change.
 
 ```{r}
 #| echo: false
