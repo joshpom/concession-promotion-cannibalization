@@ -1,0 +1,304 @@
+---
+title: "Concession Promotion Impact & Cannibalization — 300 Level Only"
+subtitle: "Do the Miller High Life and 6-1 hot dog promotions grow sales, or just shift them, at the level where they actually ran?"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: true
+    code-tools: true
+    theme: cosmo
+    fig-width: 9
+    fig-height: 5.5
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+knitr:
+  opts_chunk:
+    fig.align: center
+---
+
+```{r setup}
+#| include: false
+library(dplyr); library(tidyr); library(stringr); library(ggplot2); library(knitr)
+
+proj_dir <- if (dir.exists("../output")) normalizePath("..") else normalizePath(".")
+results  <- readRDS(file.path(proj_dir, "output/tables/cannibalization_results_300level_v2.rds"))
+
+gr  <- results$growth_results
+wg  <- results$within_game
+ir  <- results$item_results
+zf  <- results$zero_fill_report
+ip  <- results$item_panel
+uni <- results$universe
+meta <- results$meta
+
+pal2 <- c("Non-promo" = "#9A9A9A", "Promo" = "#CE1141")
+pal_lens <- c("Simple comparison" = "#9A9A9A", "Season-matched" = "#13274F")
+lens_label <- c("tier-matched" = "Simple comparison", "window-matched" = "Season-matched")
+theme_report <- theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank(), plot.title = element_text(face = "bold"),
+        legend.position = "top")
+theme_set(theme_report)
+
+spct   <- function(x) ifelse(is.na(x), "n/a", sprintf("%+.1f%%", x))
+ci_txt <- function(lo, hi) sprintf("%.2f to %.2f", lo, hi)
+p_cell <- function(x) ifelse(is.na(x), "n/a", ifelse(x < 0.001, "< 0.001", sprintf("%.3f", x)))
+p_txt  <- function(x) ifelse(is.na(x), "n/a", ifelse(x < 0.001, "p < 0.001", sprintf("p = %.3f", x)))
+gval   <- function(grp, mdl, col) gr[[col]][gr$group == grp & gr$model == mdl][1]
+
+promo_col_of <- function(cat) if (cat == "beer") "beer_promo" else "food_promo"
+tiers_of     <- function(cat) if (cat == "beer") meta$beer_relevant_tiers else meta$food_relevant_tiers
+item_dist <- function(item, cat) {
+  pc <- promo_col_of(cat); ti <- tiers_of(cat)
+  bw <- if (cat == "beer") results$beer_base_win else results$food_base_win
+  ip %>% filter(name == item, Tier %in% ti,
+                (.data[[pc]] == 1) | (.data[[pc]] == 0 & saleAttribution_date %in% bw)) %>%
+    mutate(grp = factor(ifelse(.data[[pc]] == 1, "Promo", "Non-promo"), levels = c("Non-promo", "Promo")))
+}
+```
+
+```{r}
+#| echo: false
+beer_w  <- gval("total_beer", "window-matched", "pct_change"); beer_wp <- gval("total_beer", "window-matched", "p_value")
+domsub_w <- gval("beer_domestic_sub_all", "window-matched", "pct_change"); domsub_wp <- gval("beer_domestic_sub_all", "window-matched", "p_value")
+mhl_w   <- gval("beer_promoted", "window-matched", "pct_change"); mhl_wp <- gval("beer_promoted", "window-matched", "p_value")
+hd6_w   <- gval("food_promoted", "window-matched", "pct_change"); hd6_wp <- gval("food_promoted", "window-matched", "p_value")
+hd_only_rr <- wg$rel_rate_ratio[wg$category == "food (other hot dogs)"]
+hd_all_rr  <- wg$rel_rate_ratio[wg$category == "food (all substitutes)"]
+beer_within_rr <- wg$rel_rate_ratio[wg$category == "beer"]
+beer_within_p  <- wg$p_value[wg$category == "beer"]
+coors16 <- ir[ir$name == "Coors Light 16oz", ]
+burger <- ir[ir$name == "Burger Basket", ]
+tender <- ir[ir$name == "Chicken Tender Basket", ]
+```
+
+::: {.callout-important appearance="default" icon="true"}
+## Bottom line
+
+**At the 300 level — where these promotions actually ran — Miller High Life shows a strong lift of +`r sprintf("%.0f", mhl_w)`% per fan (`r p_txt(mhl_wp)`), and the within-game mix-shift toward the featured items is large and highly significant.**
+
+- **Beer:** Within the same game, substitutes sell at only `r sprintf("%.2f", beer_within_rr)`x the rate of Miller High Life (`r p_txt(beer_within_p)`). The domestic-light beer group as a whole (`r spct(domsub_w)`, `r p_txt(domsub_wp)`) does not show a statistically confirmed decline, suggesting the promotion may be growing beer sales at the 300 level rather than simply reshuffling them.
+- **Hot dogs:** Hot Dog 6-1 shows no reliable change at the 300 level (`r spct(hd6_w)`, `r p_txt(hd6_wp)`), consistent with the ballpark-wide finding.
+:::
+
+# Why we ran this version
+
+The main cannibalization analysis looked at sales **ballpark-wide** — but the Miller High Life and Hot Dog 6-1 promotions were only actually stocked and served at **300-level stands**. Diluting the comparison across every stand in the ballpark risks understating the true size of any cannibalization effect at the stands where it matters. This version repeats the same four-method framework, restricted to item sales at 300-level stands only.
+
+```{r}
+#| echo: false
+tribble(
+  ~Promotion, ~Window, ~Discounts, ~`Game tiers`,
+  "Slide into Summer (2025)", "5/30 to 6/05", "$2 6-1 hot dogs, $4 Miller High Life 12oz", "0, 1, 3, 4",
+  "Spring Value Games (2026)", "3/30-4/01, 4/13-4/15, 4/28", "$2.50 6-1 hot dogs, $4 Miller High Life 12oz", "5",
+  "May in the A (2026)", "5/12-5/14, 5/17, 5/22, 5/24", "$3 Miller High Life 12oz, $2 ice cream sandwiches", "2, 3"
+) %>% kable(caption = "Promotions covered. Beer promotions = all three; hot dog promotions = Slide into Summer and Spring Value Games.")
+```
+
+# What we measured, and how
+
+```{r}
+#| echo: false
+tribble(
+  ~Method, ~`Plain-English question`, ~`How confounding is handled`,
+  "A. Category and family growth", "Did total 300-level beer / hot dog sales (and close substitutes) go up or down per fan?", "Matched on game tier, then re-checked against non-promo games from the same part of the season",
+  "B. Within-game comparison", "Within the same game, did the featured item pull ahead of its close substitutes at the 300 level?", "Compares items inside the same game, so crowd size, weather, and opponent cancel out",
+  "C. Item-by-item", "Which specific 300-level items moved, and is it statistically real?", "Same two lenses; corrected for testing many items at once"
+) %>% kable(caption = "The three methods used in this 300-level view. Method D (Market-stand traffic) is not repeated here — see the main ballpark-wide report.")
+```
+
+A few choices worth knowing:
+
+- **Everything is measured per fan** (per turnstile entry), so a busier or quieter night does not by itself look like a promotion effect.
+- **We look at every across-game result two ways.** A *simple comparison* matches only on game tier. A *season-matched* comparison additionally restricts to non-promotion games from a similar time of year, since these promotions all run in spring. When the two lenses disagree, we rely on the season-matched result.
+- **Close substitutes, not the whole menu.** Same substitute families as the ballpark-wide report — other domestic and light beers for Miller High Life, other hot dog sizes and adjacent entrees/snacks (burger basket, chicken tender basket, nachos, jumbo pretzel) for the 6-1 — restricted here to sales recorded at 300-level stands.
+
+```{r}
+#| echo: false
+uni %>%
+  group_by(Category = str_to_title(item_category), Family = family) %>%
+  summarise(Items = paste(sort(name), collapse = ", "), .groups = "drop") %>%
+  kable(caption = "Items grouped into families, 300-level sales only. 'contrast' items are shown for reference only and are not counted as substitutes.")
+```
+
+## Data and its limits
+
+```{r}
+#| echo: false
+tribble(
+  ~Source, ~`Level of detail`,
+  "Item + transaction-level sales, 2025-26", "Every item sold, joined to transaction records to identify the serving stand and floor",
+  "Stand floor/level lookup", "Maps each stand's cost center to a physical concourse level",
+  "Concession KPIs", "Attendance (turnstile) and promotion flags per game",
+  "Schedule", "Game tier, day, weekend, opponent, time of year"
+) %>% kable(caption = "Data used for this 300-level cut.")
+```
+
+::: {.callout-note appearance="simple"}
+This view uses a different, more granular data source than the main report — item-level transaction data joined to a stand/floor lookup, rather than the ballpark-wide item-level export. It is restricted to stands identified as 300 level. Method D (Market-stand traffic) is not repeated here, since that method was already stand-specific in the main report.
+:::
+
+```{r}
+#| echo: false
+zf %>% transmute(Category = str_to_title(item_category), `Item-game rows` = rows,
+                 `Filled-in zeros` = n_zero_filled, `% filled` = pct_zero_filled) %>%
+  kable(caption = "Completeness of the 300-level item-by-game table.")
+```
+
+# What we found
+
+## Did the category grow, or did comparable items shrink? {#sec-a}
+
+```{r}
+#| label: fig-growth
+#| fig-cap: "Change in 300-level sales per fan on promotion days, by group. Grey = simple comparison, navy = season-matched. Bars are 95% confidence ranges; dashed line at 1.0 = no change."
+gr %>%
+  mutate(label = factor(label, levels = rev(unique(gr$label[order(gr$kind)]))),
+         lens = factor(lens_label[model], levels = c("Simple comparison", "Season-matched"))) %>%
+  ggplot(aes(rate_ratio, label, color = lens)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "grey50") +
+  geom_errorbar(aes(xmin = ci_low, xmax = ci_high), orientation = "y",
+                width = 0.3, position = position_dodge(width = 0.6)) +
+  geom_point(size = 2.4, position = position_dodge(width = 0.6)) +
+  scale_color_manual(values = pal_lens, name = NULL) +
+  labs(x = "Sales per fan vs. non-promotion (1.0 = no change)", y = NULL,
+       title = "300-level category and substitute-family growth")
+```
+
+```{r}
+#| echo: false
+gr %>% transmute(Group = label, Type = kind, Lens = lens_label[model],
+                 `Change per fan` = spct(pct_change), `95% range` = ci_txt(ci_low, ci_high),
+                 `p-value` = p_cell(p_value)) %>%
+  kable(caption = "300-level sales per fan on promotion vs. non-promotion days. 19 beer promotion games, 13 hot dog promotion games.")
+```
+
+Total beer per fan is roughly flat season-matched (`r spct(beer_w)`, `r p_txt(beer_wp)`). The domestic-light beer substitute family shows `r spct(domsub_w)` (`r p_txt(domsub_wp)`). On the food side, no category or family shows a reliable change.
+
+## Within the same game, did the featured item pull ahead? {#sec-b}
+
+```{r}
+#| label: fig-within
+#| fig-cap: "How close substitutes sold relative to the featured item at 300-level stands, within the same game. Below 1.0 means the mix shifted toward the featured item. Bars are 95% confidence ranges."
+wg %>% mutate(category = case_when(
+    category == "food (all substitutes)" ~ "Food (all substitutes)",
+    category == "food (other hot dogs)" ~ "Food (other hot dogs)",
+    TRUE ~ str_to_title(category)
+  )) %>%
+  ggplot(aes(rel_rate_ratio, category)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "grey50") +
+  geom_point(size = 3, color = "#13274F") +
+  geom_errorbar(aes(xmin = ci_low, xmax = ci_high), width = 0.15, color = "#13274F") +
+  labs(x = "Substitutes' sales relative to the featured item (promotion vs. non-promotion)", y = NULL,
+       title = "300-level within-game shift toward the featured item")
+```
+
+```{r}
+#| echo: false
+wg %>% transmute(Category = str_to_title(category), `Featured item` = promoted_item,
+                 Games = n_games, Substitutes = n_substitutes,
+                 `Relative sales` = round(rel_rate_ratio, 3),
+                 `95% range` = ci_txt(ci_low, ci_high), `p-value` = p_cell(p_value)) %>%
+  kable(caption = "300-level within-game shift toward the featured item.")
+```
+
+Beer substitutes sell at only `r sprintf("%.2f", beer_within_rr)`x Miller High Life's rate within the same game (`r p_txt(beer_within_p)`).
+
+## Item by item {#sec-c}
+
+```{r}
+#| label: fig-forest-robust
+#| fig-cap: "Each 300-level item's sales change on promotion days: simple comparison (grey) vs. season-matched (navy). Featured and substitute items only. Dashed line at 1.0 = no change."
+ir %>% filter((is_substitute == 1 | is_promoted == 1), !is.na(rate_ratio), !is.na(rr_adj)) %>%
+  select(name, category, tier = rate_ratio, adjusted = rr_adj) %>%
+  pivot_longer(c(tier, adjusted), names_to = "model", values_to = "rr") %>%
+  mutate(lens = factor(ifelse(model == "tier", "Simple comparison", "Season-matched"),
+                       levels = c("Simple comparison", "Season-matched"))) %>%
+  ggplot(aes(rr, reorder(name, rr))) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "grey50") +
+  geom_line(aes(group = name), color = "grey75", linewidth = 0.9) +
+  geom_point(aes(color = lens), size = 2.6) +
+  facet_grid(category ~ ., scales = "free_y", space = "free_y") +
+  scale_color_manual(values = pal_lens, name = NULL) +
+  labs(x = "Sales per fan vs. non-promotion (1.0 = no change)", y = NULL,
+       title = "300-level item-by-item results")
+```
+
+```{r}
+#| echo: false
+ir %>% filter(is_substitute == 1 | is_promoted == 1) %>%
+  transmute(Category = str_to_title(category), Item = name,
+            Role = ifelse(is_promoted == 1, "featured", "substitute"),
+            `Simple %` = spct(pct_change), `Season-matched %` = spct(pct_change_adj),
+            `Season-matched p` = p_cell(p_value_adj), `Multi-test p` = p_cell(p_adj_all_subs)) %>%
+  kable(caption = "300-level item-by-item change in sales per fan.")
+```
+
+### Power {#sec-power}
+
+```{r}
+#| label: fig-power
+#| fig-cap: "Approximate minimum detectable change (per fan, 80% power) per item, 300-level sales only. Large values mean a real moderate effect could go undetected."
+ir %>% filter(!is.na(mde_pct_80_approx), is_substitute == 1 | is_promoted == 1) %>%
+  mutate(category = str_to_title(category)) %>%
+  ggplot(aes(mde_pct_80_approx, reorder(name, mde_pct_80_approx), fill = category)) +
+  geom_col() +
+  scale_fill_manual(values = c("Beer" = "#CE1141", "Food" = "#13274F"), name = NULL) +
+  labs(x = "Approx. minimum detectable change (%) at 80% power", y = NULL,
+       title = "How sensitive is each 300-level comparison?")
+```
+
+## Distributions for the key items {#sec-dist}
+
+```{r}
+#| label: fig-key-dist
+#| fig-cap: "300-level sales per fan on promotion vs. non-promotion days for the featured beer and the substitute that moved."
+bind_rows(
+  item_dist(meta$promoted_beer, "beer") %>% mutate(panel = "Miller High Life 12oz (featured)"),
+  item_dist("Coors Light 16oz", "beer") %>% mutate(panel = "Coors Light 16oz (top seller, sells less)"),
+  item_dist(meta$promoted_food, "food") %>% mutate(panel = "Hot Dog 6-1 (featured)")
+) %>%
+  ggplot(aes(qty_per_turnstile, fill = grp, color = grp)) +
+  geom_density(alpha = 0.35) +
+  facet_wrap(~ panel, scales = "free", ncol = 1) +
+  scale_fill_manual(values = pal2, name = NULL) + scale_color_manual(values = pal2, name = NULL) +
+  labs(x = "Units sold per fan", y = "Relative frequency", title = "Where the promotion shifts sales, 300 level")
+```
+
+# What it means, and what to do
+
+1. **The 300-level within-game evidence is strong for beer.** The within-game mix-shift toward Miller High Life is large and highly significant.
+2. **The hot dog promotion remains inconclusive at the 300 level** for the featured item itself.
+3. **Consider running the hot dog promotion longer before judging it**, same recommendation as the ballpark-wide report.
+
+# How confident we should be
+
+- **Different data source than the main report.** This view uses transaction-level data joined to a stand/floor lookup, not the ballpark-wide item export — results are not directly comparable line-by-line to the main report's numbers, though the same methods and substitute families are used.
+- **Fewer, more concentrated observations.** Restricting to 300-level stands means fewer transactions feed each estimate than the ballpark-wide version.
+- **Same season-timing and few-games caveats as the main report** apply here.
+- **No margin data**, same as the main report — unit shifts are not the same as profit shifts.
+
+# Appendix: full item results
+
+```{r}
+#| echo: false
+ir %>% transmute(Category = str_to_title(category), Item = name, Family = family,
+                 `Promo games` = n_promo, `Base games` = n_base,
+                 `Simple %` = spct(pct_change), `Simple p` = p_cell(p_value),
+                 `Season-matched %` = spct(pct_change_adj), `Season-matched p` = p_cell(p_value_adj),
+                 `Multi-test p` = p_cell(p_adj_all_subs)) %>%
+  kable(caption = "All 300-level items compared, including reference (contrast) items.")
+```
+
+*Produced from `output/tables/cannibalization_results_300level_v2.rds`, generated by `scripts/stand_level_promotion_analysis.R`. To refresh, re-run that script and re-render this document.*
+
+```{r}
+#| echo: false
+cat("R version:", R.version$version.string, "\n")
+```
