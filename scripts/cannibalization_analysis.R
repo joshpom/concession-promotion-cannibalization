@@ -1,19 +1,11 @@
 # =============================================================================
-# Concession Promotion Cannibalization Analysis (v2)
+# Concession Promotion Cannibalization Analysis
 # -----------------------------------------------------------------------------
 # Question: Do the Miller High Life / 6-1 hot dog promotions grow the category,
 #           or just shift sales from full-price substitutes to the discounted
 #           item (cannibalization)?
 #
-# v4: fixed "baseline = non-promo" logic to be PROMO-SPECIFIC throughout.
-#     Previously, all baselines excluded ANY promo day (concession_promotion
-#     == 0), which wrongly excluded e.g. May in the A (beer-only) days from
-#     the FOOD baseline. Now every baseline uses .data[[promo_col]] == 0,
-#     so a beer-only promo day can serve as a valid food baseline day, and
-#     vice versa. Applied consistently in: fit_growth, win_base_dates,
-#     share_of, fit_item, fit_within_game, run_did.
-#
-# DATA CONSTRAINTS (unchanged):
+# DATA CONSTRAINTS:
 #   * item files have NO stand column   -> item analysis (A,B,C) is ballpark-wide.
 #   * stand files have NO item breakdown -> Market test (D) is txns/revenue only.
 #   * No weather/temperature data. Game FE (B) and stand+game FE (D) absorb it;
