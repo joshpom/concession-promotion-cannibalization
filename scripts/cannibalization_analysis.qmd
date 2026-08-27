@@ -73,7 +73,7 @@ hdfam_w <- gval("hotdog_family_all", "window-matched", "pct_change"); hdfam_wp <
 hd6_w   <- gval("food_promoted", "window-matched", "pct_change")
 coors16 <- ir[ir$name == "Coors Light 16oz", ]
 mlite16 <- ir[ir$name == "Miller Lite 16oz", ]
-cll     <- ir[ir$name == "Coors Light Large", ]
+cll     <- ir[ir$name == "Coors Light 24oz", ]
 beer_did <- dd[dd$promo == "Beer promo" & dd$outcome == "transactions (Poisson, offset)", ]
 ```
 
@@ -267,13 +267,13 @@ ir %>% filter(is_substitute == 1 | is_promoted == 1) %>%
   kable(caption = "Item-by-item change in sales per fan. 'Season-matched' is the result we rely on. 'Multi-test p' corrects the season-matched result for testing many substitutes at once.")
 ```
 
-The simple comparison suggests several beer substitutes move, but some of those effects shift once we match on season — for example, Coors Light Large reverses to `r spct(cll$pct_change_adj)`. Among the substitutes, Coors Light 16oz (`r spct(coors16$pct_change_adj)`, `r p_txt(coors16$p_value_adj)`) and Miller Lite 16oz (`r spct(mlite16$pct_change_adj)`, `r p_txt(mlite16$p_value_adj)`) both trend down after season matching but neither reaches significance individually. The chart and table below show the full item-level picture.
+The simple comparison suggests several beer substitutes move, but some of those effects shrink once we match on season. Among the substitutes, Coors Light 16oz (`r spct(coors16$pct_change_adj)`, `r p_txt(coors16$p_value_adj)`) and Miller Lite 16oz (`r spct(mlite16$pct_change_adj)`, `r p_txt(mlite16$p_value_adj)`) both trend down after season matching but neither reaches significance individually. The chart and table below show the full item-level picture.
 
 ### Power {#sec-power}
 
 ```{r}
 #| label: fig-power
-#| fig-cap: "Approximate minimum detectable change (per fan, 80% power) per item. Large values mean a real moderate effect could go undetected, especially the low-volume beers and the 11-game food comparisons."
+#| fig-cap: "Approximate minimum detectable change (per fan, 80% power) per item. Large values mean a real moderate effect could go undetected, especially the low-volume beers and the 13-game food comparisons."
 ir %>% filter(!is.na(mde_pct_80_approx), is_substitute == 1 | is_promoted == 1) %>%
   mutate(category = str_to_title(category)) %>%
   ggplot(aes(mde_pct_80_approx, reorder(name, mde_pct_80_approx), fill = category)) +

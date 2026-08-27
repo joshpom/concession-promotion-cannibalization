@@ -83,8 +83,8 @@ tender <- ir[ir$name == "Chicken Tender Basket", ]
 
 **At the 300 level — where these promotions actually ran — Miller High Life shows a strong lift of +`r sprintf("%.0f", mhl_w)`% per fan (`r p_txt(mhl_wp)`), and the within-game mix-shift toward the featured items is large and highly significant.**
 
-- **Beer:** Within the same game, substitutes sell at only `r sprintf("%.2f", beer_within_rr)`x the rate of Miller High Life (`r p_txt(beer_within_p)`). The domestic-light beer group as a whole (`r spct(domsub_w)`, `r p_txt(domsub_wp)`) does not show a statistically confirmed decline, suggesting the promotion may be growing beer sales at the 300 level rather than simply reshuffling them.
-- **Hot dogs:** Hot Dog 6-1 shows no reliable change at the 300 level (`r spct(hd6_w)`, `r p_txt(hd6_wp)`), consistent with the ballpark-wide finding.
+- **Beer:** Within the same game, substitutes sell at only `r sprintf("%.2f", beer_within_rr)`x the rate of Miller High Life (`r p_txt(beer_within_p)`). The domestic-light beer substitutes (excluding Miller High Life) show no sign of decline (`r spct(domsub_w)`, `r p_txt(domsub_wp)`), suggesting the promotion may be growing beer sales at the 300 level rather than simply reshuffling them.
+- **Hot dogs:** Hot Dog 6-1 shows a significant lift at the 300 level (`r spct(hd6_w)`, `r p_txt(hd6_wp)`), stronger than the ballpark-wide estimate — consistent with the promotion running at this level.
 :::
 
 # Why we ran this version
@@ -274,8 +274,8 @@ bind_rows(
 # What it means, and what to do
 
 1. **The 300-level within-game evidence is strong for beer.** The within-game mix-shift toward Miller High Life is large and highly significant.
-2. **The hot dog promotion remains inconclusive at the 300 level** for the featured item itself.
-3. **Consider running the hot dog promotion longer before judging it**, same recommendation as the ballpark-wide report.
+2. **The hot dog 6-1 also shows a significant lift at the 300 level**, stronger than the ballpark-wide estimate, consistent with the promotion running at these stands.
+3. **The margin question matters here too** — the discounted price means more units sold does not automatically mean more profit.
 
 # How confident we should be
 

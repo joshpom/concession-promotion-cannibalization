@@ -206,9 +206,9 @@ items_def <- tribble(
   "Beer Coors Light Cleat",             "Beer",                          "Beer",       0.3,        16.00,       NA,           1.00,       1.0,        0.00,
   "Beer Blue Moon Cleat",               "Beer",                          "Beer",       0.2,        16.00,       NA,           1.00,       1.0,        0.00,
   "Beer Blue Moon Blood Orange IPA Cleat","Beer",                        "Beer",       0.2,        16.00,       NA,           1.00,       1.0,        0.00,
-  "Hot Dog All Beef 6-1",               "Hot Dogs/Sausages",             "Food",       4.5,        7.50,        2.50,         1.0,        1.11,       0.00,
-  "Hot Dog All Beef 4-1",               "Hot Dogs/Sausages",             "Food",       2.0,        9.00,        NA,           1.0,        0.85,       0.00,
-  "Hot Dog All Beef 2-1",               "Hot Dogs/Sausages",             "Food",       1.5,        11.00,       NA,           1.0,        0.85,       0.00,
+  "Hot Dog All Beef 6-1",               "Hot Dogs/Sausages",             "Food",       4.5,        7.50,        2.50,         1.0,        1.00,       0.00,
+  "Hot Dog All Beef 4-1",               "Hot Dogs/Sausages",             "Food",       2.0,        9.00,        NA,           1.0,        1.00,       0.00,
+  "Hot Dog All Beef 2-1",               "Hot Dogs/Sausages",             "Food",       1.5,        11.00,       NA,           1.0,        1.00,       0.00,
   "Burger Basket",                      "Burgers/Sandwiches/Wraps/Bowls","Food",       2.8,        14.50,       NA,           1.0,        0.98,       0.00,
   "Chicken Tender Basket",              "Chicken",                       "Food",       3.0,        13.50,       NA,           1.0,        0.97,       0.00,
   "CFA Chicken Sandwich",               "Chicken",                       "Food",       3.5,        10.50,       NA,           1.0,        1.00,       0.00,
@@ -492,6 +492,8 @@ gen_300_items <- function(game_df, season_year) {
         promo_mult <- 1.0
         if (item$beer_mult != 1.0 & game$beer_promo == 1) promo_mult <- item$beer_mult
         if (item$food_mult != 1.0 & game$food_promo == 1) promo_mult <- item$food_mult
+        # 300-level is where the promo actually runs, so hot dog effect should be stronger here
+        if (item$name == "Hot Dog All Beef 6-1" & game$food_promo == 1) promo_mult <- 1.50
 
         qty <- max(1, rnbinom(1, size = 2, mu = 1.5 * promo_mult))
         use_pp <- !is.na(item$promo_price) & (
