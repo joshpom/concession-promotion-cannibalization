@@ -163,3 +163,4 @@ The pre-rendered HTML reports in `reports/` are the primary deliverable.
 - Item-level cannibalization is ballpark-wide, not Market-specific (item data has no stand field).
 - Few promotion games, all in the first half of the season.
 - Across-game comparisons are associations; they do not control opponent draw or weather directly.
+- **Data is synthetic.** The numbers are not real; the methodology and analytical framework are.
