@@ -118,7 +118,7 @@ Promotions covered (all fall in the first half of the season):
 - **Curated substitute families, not the whole menu.** Items are grouped into close substitutes:
   - Beer: domestic and light beers (Coors Light, Miller Lite, Coors Banquet), split out into a
     large-pour subgroup.
-  - Hot dogs: the other all-beef hot dog sizes (4-1, 2-1), plus adjacent staples (nachos, jumbo pretzel).
+  - Hot dogs: the other all-beef hot dog sizes (4-1, 2-1), plus adjacent staples (burger basket, chicken tender basket, nachos, jumbo pretzel).
   - POS name duplicates are merged, novelty and very low-volume items are excluded (minimum 5,000
     units over the two seasons), and a set of unrelated "contrast" items is shown for reference.
 - **Complete, zero-filled item-by-game table.** An item is treated as available in a season if it
