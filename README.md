@@ -33,11 +33,11 @@ scripts/
   stand_level_promotion_analysis.R       Same methods, restricted to 300-level stands
   cannibalization_analysis_300_level.qmd 300-level report
   concessions_promotions.R               Exploratory KPI/plot script
-  concession_promo_summary.qmd           Static narrative summary
+  concession_promo_300_summary.qmd       300-level narrative summary
 reports/
   cannibalization_analysis.html          Main cannibalization report
   cannibalization_analysis_300_level.html 300-level report
-  concession_promo_summary.html          Summary narrative
+  concession_promo_300_summary.html      300-level narrative summary
 README.md
 ```
 
