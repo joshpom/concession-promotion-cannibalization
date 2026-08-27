@@ -1,0 +1,43 @@
+---
+title: "Concession Promotions Analysis"
+date: today
+format:
+  html:
+    toc: false
+    theme: cosmo
+    embed-resources: true
+---
+
+## Overview
+
+This analysis looked to evaluate the effectiveness of concession promotions we have run and see how the sales of both the promoted items and other popular menu items have performed on promotions days versus regular days. We want to see if these promotions are leading to significant cannibalization on other items, meaning people are switching from full-price items to these cheaper promoted items. Answering this matters for deciding whether these promotions are a net gain or loss for concessions or just shifting revenue around the menu.
+
+Additionally, we would like to see the impact that concession promotions can have on getting more people into the ballpark. More people in the park will lead not only to more concessions revenue, but also more revenue on adjacent products like retail and parking. Note that there will also be some marketing expenses that come with marketing these promotions.
+
+## Promotions Covered
+
+This analysis looked at 3 promotions we have done over the 2025 and 2026 seasons.
+
+- **2025 Slide into Summer** (5/30-6/05): $2 6-1 hot dogs, $4 Miller High Life 12oz
+- **2026 Spring value games** (3/30-4/01, 4/13-4/15, 4/28): $2.50 6-1 hot dogs, $4 Miller High Life 12oz
+- **2026 May in the A** (5/12-5/14, 5/17, 5/22, 5/24): $3 Miller High Life 12oz, $2 Ice Cream Sandwiches
+
+In total, there were 19 beer promotion games and 13 hot dog promotion games.
+
+## Methodology
+
+For this analysis, we focused on quantity sold per person in the ballpark. We compared quantity sold per turnstile in the promotion games vs. similar non-promotion games. This analysis only looks at sales on the 300-level, which is where the promotions ran.
+
+## Beer Promotion Findings
+
+With our model, the promoted beer (Miller High Life) saw an approximately +32% change in sales per person when compared to season-matched non-promo games (p = 0.006). The domestic-light beer substitutes as a group showed no sign of decline (+3.9%, not significant), and total beer was roughly flat (+7.4%, not significant). Within the same game, Miller High Life pulled ahead of its domestic-light substitutes, with those substitutes selling at about 72% of their usual rate relative to Miller High Life on promo nights (p < 0.001). Miller High Life's share of the domestic-light family rose from about 16% on baseline games to 21% on promo games. The one substitute that did move significantly was Coors Banquet 16oz (-29.4%, p = 0.028), while the top sellers - Coors Light 16oz and Miller Lite 16oz - were essentially flat after season matching.
+
+## Hot Dog Promotion Findings
+
+With the hot dog promotions (13 games), the promoted item itself, the 6-1 Hot Dog, saw an approximately +40% increase in sales per person (p < 0.001). The hot dog family as a whole grew significantly (+27.4%, p = 0.003), suggesting the promotion is bringing in incremental volume, not just reshuffling it. Within the same game, all substitutes sold at about 69% of their usual rate relative to the 6-1 on promo nights (p < 0.001). The 6-1's share of total hot dog family volume rose from about 56% on baseline games to 63% on promo games. There is some evidence of substitution away from adjacent entrees - burger basket declined significantly (-23.9%, p = 0.008) - while other hot dog sizes (4-1, 2-1) were essentially flat after season matching.
+
+## Bottom Line
+
+Overall, for beer promo games, while there is a strong uptick in sales of the promoted Miller High Life, the beer substitutes and category total do not decline — the promotion appears to grow Miller High Life without clearly shrinking other beers. On hot dog promo games, the promoted 6-1 hot dog saw a significant lift and the hot dog family grew, though some of the gain appears to come at the expense of adjacent entrees like the burger basket. For stronger evidence, more promotions should be run and throughout different parts of the season.
+
+It is also important to consider the effect promotions can have on getting more people into the ballpark. More people in the park leads not only to more concessions revenue, but also more revenue on adjacent products like retail and parking. If we assume an average turnstile of 25,000 on comparable non-promo games and we assume promotions will lead to an increase in turnstile by 4.5%, that would be an additional 1,125 people in the park each game, generating meaningful incremental revenue across concessions, retail, and parking.

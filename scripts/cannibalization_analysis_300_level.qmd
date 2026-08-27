@@ -84,12 +84,12 @@ tender <- ir[ir$name == "Chicken Tender Basket", ]
 **At the 300 level — where these promotions actually ran — Miller High Life shows a strong lift of +`r sprintf("%.0f", mhl_w)`% per fan (`r p_txt(mhl_wp)`), and the within-game mix-shift toward the featured items is large and highly significant.**
 
 - **Beer:** Within the same game, substitutes sell at only `r sprintf("%.2f", beer_within_rr)`x the rate of Miller High Life (`r p_txt(beer_within_p)`). The domestic-light beer substitutes (excluding Miller High Life) show no sign of decline (`r spct(domsub_w)`, `r p_txt(domsub_wp)`), suggesting the promotion may be growing beer sales at the 300 level rather than simply reshuffling them.
-- **Hot dogs:** Hot Dog 6-1 shows a significant lift at the 300 level (`r spct(hd6_w)`, `r p_txt(hd6_wp)`), stronger than the ballpark-wide estimate — consistent with the promotion running at this level.
+- **Hot dogs:** Hot Dog 6-1 shows a significant lift at the 300 level (`r spct(hd6_w)`, `r p_txt(hd6_wp)`), stronger than the ballpark-wide estimate - consistent with the promotion running at this level.
 :::
 
 # Why we ran this version
 
-The main cannibalization analysis looked at sales **ballpark-wide** — but the Miller High Life and Hot Dog 6-1 promotions were only actually stocked and served at **300-level stands**. Diluting the comparison across every stand in the ballpark risks understating the true size of any cannibalization effect at the stands where it matters. This version repeats the same four-method framework, restricted to item sales at 300-level stands only.
+The main cannibalization analysis looked at sales **ballpark-wide** - but the Miller High Life and Hot Dog 6-1 promotions were only actually stocked and served at **300-level stands**. Diluting the comparison across every stand in the ballpark risks understating the true size of any cannibalization effect at the stands where it matters. This version repeats the same four-method framework, restricted to item sales at 300-level stands only.
 
 ```{r}
 #| echo: false
@@ -117,7 +117,7 @@ A few choices worth knowing:
 
 - **Everything is measured per fan** (per turnstile entry), so a busier or quieter night does not by itself look like a promotion effect.
 - **We look at every across-game result two ways.** A *simple comparison* matches only on game tier. A *season-matched* comparison additionally restricts to non-promotion games from a similar time of year, since these promotions all run in spring. When the two lenses disagree, we rely on the season-matched result.
-- **Close substitutes, not the whole menu.** Same substitute families as the ballpark-wide report — other domestic and light beers for Miller High Life, other hot dog sizes and adjacent entrees/snacks (burger basket, chicken tender basket, nachos, jumbo pretzel) for the 6-1 — restricted here to sales recorded at 300-level stands.
+- **Close substitutes, not the whole menu.** Same substitute families as the ballpark-wide report - other domestic and light beers for Miller High Life, other hot dog sizes and adjacent entrees/snacks (burger basket, chicken tender basket, nachos, jumbo pretzel) for the 6-1 - restricted here to sales recorded at 300-level stands.
 
 ```{r}
 #| echo: false
@@ -141,7 +141,7 @@ tribble(
 ```
 
 ::: {.callout-note appearance="simple"}
-This view uses a different, more granular data source than the main report — item-level transaction data joined to a stand/floor lookup, rather than the ballpark-wide item-level export. It is restricted to stands identified as 300 level. Method D (Market-stand traffic) is not repeated here, since that method was already stand-specific in the main report.
+This view uses a different, more granular data source than the main report - item-level transaction data joined to a stand/floor lookup, rather than the ballpark-wide item-level export. It is restricted to stands identified as 300 level. Method D (Market-stand traffic) is not repeated here, since that method was already stand-specific in the main report.
 :::
 
 ```{r}
@@ -179,7 +179,7 @@ gr %>% transmute(Group = label, Type = kind, Lens = lens_label[model],
   kable(caption = "300-level sales per fan on promotion vs. non-promotion days. 19 beer promotion games, 13 hot dog promotion games.")
 ```
 
-Total beer per fan is roughly flat season-matched (`r spct(beer_w)`, `r p_txt(beer_wp)`). The domestic-light beer substitute family shows `r spct(domsub_w)` (`r p_txt(domsub_wp)`). On the food side, no category or family shows a reliable change.
+Total beer per fan is roughly flat season-matched (`r spct(beer_w)`, `r p_txt(beer_wp)`). The domestic-light beer substitute family shows `r spct(domsub_w)` (`r p_txt(domsub_wp)`). On the food side, the hot dog family shows a significant increase, the featured 6-1 has a strong lift, and the adjacent entrees (burger basket, chicken tender basket) decline significantly - suggesting some substitution toward the promoted item. The item-level view below shows the detail.
 
 ## Within the same game, did the featured item pull ahead? {#sec-b}
 

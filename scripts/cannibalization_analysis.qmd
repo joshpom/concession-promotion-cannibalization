@@ -99,7 +99,7 @@ This report separates those two stories for beer and for hot dogs, and adds a Ma
 #| echo: false
 tribble(
   ~Promotion, ~Window, ~Discounts, ~`Game tiers`,
-  "Slide into Summer (2025)", "5/30 to 6/05", "$2 6-1 hot dogs, $4 Miller High Life 12oz", "1, 3",
+  "Slide into Summer (2025)", "5/30 to 6/05", "$2 6-1 hot dogs, $4 Miller High Life 12oz", "0, 1, 3, 4",
   "Spring Value Games (2026)", "3/30-4/01, 4/13-4/15, 4/28", "$2.50 6-1 hot dogs, $4 Miller High Life 12oz", "5",
   "May in the A (2026)", "5/12-5/14, 5/17, 5/22, 5/24", "$3 Miller High Life 12oz, $2 ice cream sandwiches", "2, 3"
 ) %>% kable(caption = "Promotions covered. Beer promotions = all three; hot dog promotions = Slide into Summer and Spring Value Games.")
@@ -190,7 +190,7 @@ gr %>% transmute(Group = label, Type = kind, Lens = lens_label[model],
   kable(caption = "Sales per fan on promotion vs. non-promotion days. 19 beer promotion games, 13 hot dog promotion games.")
 ```
 
-Season-matched, total beer per fan is flat and the domestic-light substitute family trends down but not significantly. On the food side, the hot dog family trends up but also falls short of significance. The item-level view below identifies which individual items drive these patterns.
+Season-matched, total beer per fan is essentially flat and the domestic-light substitute family trends down but not significantly on the season-matched result. On the food side, the hot dog family trends up but also falls just short of significance. The item-level view below identifies which individual items drive these patterns.
 
 The featured items do take a larger share of their family, as expected from a discount:
 
