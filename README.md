@@ -8,8 +8,6 @@ and the **6-1 all-beef hot dog** grow sales or simply shift them from comparable
 information); all sales figures, attendance counts, and item volumes are synthetic but structured to
 preserve the statistical patterns and directional findings of the original analysis.
 
-The headline deliverable is the rendered report in `reports/cannibalization_analysis.html`.
-
 ---
 
 ## The question
