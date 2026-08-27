@@ -2278,7 +2278,7 @@ vertical-align: -.125em;
 </div>
 <section id="why-we-ran-this-version" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Why we ran this version</h1>
-<p>The main cannibalization analysis looked at sales <strong>ballpark-wide</strong> - but the Miller High Life and Hot Dog 6-1 promotions were only actually stocked and served at <strong>300-level stands</strong>. Diluting the comparison across every stand in the ballpark risks understating the true size of any cannibalization effect at the stands where it matters. This version repeats the same four-method framework, restricted to item sales at 300-level stands only.</p>
+<p>The main cannibalization analysis looked at sales <strong>ballpark-wide</strong> - but the Miller High Life and Hot Dog 6-1 promotions were only actually stocked and served at <strong>300-level stands</strong>. Diluting the comparison across every stand in the ballpark risks understating the true size of any cannibalization effect at the stands where it matters. This version repeats the same framework, restricted to item sales at 300-level stands only.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -2728,7 +2728,7 @@ Figure 1: Change in 300-level sales per fan on promotion days, by group. Grey =
 </table>
 </div>
 </div>
-<p>Total beer per fan is roughly flat season-matched (+7.4%, p = 0.196). The domestic-light beer substitute family shows +3.9% (p = 0.491). On the food side, the hot dog family shows a significant increase, the featured 6-1 has a strong lift, and the adjacent entrees (burger basket, chicken tender basket) decline significantly - suggesting some substitution toward the promoted item. The item-level view below shows the detail.</p>
+<p>Total beer per fan is up slightly season-matched (+7.4%, p = 0.196). The domestic-light beer substitute family shows +3.9% (p = 0.491). On the food side, the hot dog family shows a significant increase, the featured 6-1 has a strong lift, and the adjacent entrees (burger basket, chicken tender basket) decline significantly - suggesting some substitution toward the promoted item. The item-level view below shows the detail.</p>
 </section>
 <section id="sec-b" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="sec-b"><span class="header-section-number">3.2</span> Within the same game, did the featured item pull ahead?</h2>
@@ -3075,10 +3075,10 @@ Figure 5: 300-level sales per fan on promotion vs. non-promotion days for the 
 <section id="how-confident-we-should-be" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> How confident we should be</h1>
 <ul>
-<li><strong>Different data source than the main report.</strong> This view uses transaction-level data joined to a stand/floor lookup, not the ballpark-wide item export — results are not directly comparable line-by-line to the main report’s numbers, though the same methods and substitute families are used.</li>
+<li><strong>Different data source than the main report.</strong> This view uses transaction-level data joined to a stand/floor lookup, not the ballpark-wide item export - results are not directly comparable line-by-line to the main report’s numbers, though the same methods and substitute families are used.</li>
 <li><strong>Fewer, more concentrated observations.</strong> Restricting to 300-level stands means fewer transactions feed each estimate than the ballpark-wide version.</li>
 <li><strong>Same season-timing and few-games caveats as the main report</strong> apply here.</li>
-<li><strong>No margin data</strong>, same as the main report — unit shifts are not the same as profit shifts.</li>
+<li><strong>No margin data</strong>, same as the main report - unit shifts are not the same as profit shifts.</li>
 </ul>
 </section>
 <section id="appendix-full-item-results" class="level1" data-number="6">
@@ -3888,7 +3888,7 @@ Figure 5: 300-level sales per fan on promotion vs. non-promotion days for the 
 <span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="fu"># Why we ran this version</span></span>
 <span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>The main cannibalization analysis looked at sales **ballpark-wide** - but the Miller High Life and Hot Dog 6-1 promotions were only actually stocked and served at **300-level stands**. Diluting the comparison across every stand in the ballpark risks understating the true size of any cannibalization effect at the stands where it matters. This version repeats the same four-method framework, restricted to item sales at 300-level stands only.</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>The main cannibalization analysis looked at sales **ballpark-wide** - but the Miller High Life and Hot Dog 6-1 promotions were only actually stocked and served at **300-level stands**. Diluting the comparison across every stand in the ballpark risks understating the true size of any cannibalization effect at the stands where it matters. This version repeats the same framework, restricted to item sales at 300-level stands only.</span>
 <span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
@@ -3978,7 +3978,7 @@ Figure 5: 300-level sales per fan on promotion vs. non-promotion days for the 
 <span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&quot;300-level sales per fan on promotion vs. non-promotion days. 19 beer promotion games, 13 hot dog promotion games.&quot;</span>)</span>
 <span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a>Total beer per fan is roughly flat season-matched (<span class="in">`r spct(beer_w)`</span>, <span class="in">`r p_txt(beer_wp)`</span>). The domestic-light beer substitute family shows <span class="in">`r spct(domsub_w)`</span> (<span class="in">`r p_txt(domsub_wp)`</span>). On the food side, the hot dog family shows a significant increase, the featured 6-1 has a strong lift, and the adjacent entrees (burger basket, chicken tender basket) decline significantly - suggesting some substitution toward the promoted item. The item-level view below shows the detail.</span>
+<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a>Total beer per fan is up slightly season-matched (<span class="in">`r spct(beer_w)`</span>, <span class="in">`r p_txt(beer_wp)`</span>). The domestic-light beer substitute family shows <span class="in">`r spct(domsub_w)`</span> (<span class="in">`r p_txt(domsub_wp)`</span>). On the food side, the hot dog family shows a significant increase, the featured 6-1 has a strong lift, and the adjacent entrees (burger basket, chicken tender basket) decline significantly - suggesting some substitution toward the promoted item. The item-level view below shows the detail.</span>
 <span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a><span class="fu">## Within the same game, did the featured item pull ahead? {#sec-b}</span></span>
 <span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a></span>
@@ -4078,10 +4078,10 @@ Figure 5: 300-level sales per fan on promotion vs. non-promotion days for the 
 <span id="cb7-307"><a href="#cb7-307" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-308"><a href="#cb7-308" aria-hidden="true" tabindex="-1"></a><span class="fu"># How confident we should be</span></span>
 <span id="cb7-309"><a href="#cb7-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Different data source than the main report.** This view uses transaction-level data joined to a stand/floor lookup, not the ballpark-wide item export — results are not directly comparable line-by-line to the main report&#39;s numbers, though the same methods and substitute families are used.</span>
+<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Different data source than the main report.** This view uses transaction-level data joined to a stand/floor lookup, not the ballpark-wide item export - results are not directly comparable line-by-line to the main report&#39;s numbers, though the same methods and substitute families are used.</span>
 <span id="cb7-311"><a href="#cb7-311" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Fewer, more concentrated observations.** Restricting to 300-level stands means fewer transactions feed each estimate than the ballpark-wide version.</span>
 <span id="cb7-312"><a href="#cb7-312" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Same season-timing and few-games caveats as the main report** apply here.</span>
-<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No margin data**, same as the main report — unit shifts are not the same as profit shifts.</span>
+<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**No margin data**, same as the main report - unit shifts are not the same as profit shifts.</span>
 <span id="cb7-314"><a href="#cb7-314" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-315"><a href="#cb7-315" aria-hidden="true" tabindex="-1"></a><span class="fu"># Appendix: full item results</span></span>
 <span id="cb7-316"><a href="#cb7-316" aria-hidden="true" tabindex="-1"></a></span>
